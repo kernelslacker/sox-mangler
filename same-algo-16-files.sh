@@ -39,16 +39,6 @@ do
 	timeout -k 30s 15m \
 	    sox --multi-threaded -S "$1" "$DEST" $ARGS norm channels 2 \
 		compand 0.3,1 6:-70,-60,-20 -5 -90 0.2
-
-	# If we generated a 32bit WAV, we want to downsample it.
-	# because Live can't read 32bit yet.
-	RES=$(soxi "$DEST" | grep Precision | awk '{ print $3 }')
-	case "$RES" in
-	32-bit)	R=$RANDOM
-		sox "$DEST" -b 24 resample-$R.wav
-		mv resample-$R.wav "$DEST"
-		;;
-	esac
 done
 
 # join

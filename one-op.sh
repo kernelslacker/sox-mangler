@@ -56,15 +56,4 @@ if [ ! -f "$2" ]; then
   exit
 fi
 
-# If we generated a 32bit WAV, we want to downsample it.
-# because Live can't read 32bit yet.
-RES=$(soxi "$2" | grep Precision | awk '{ print $3 }')
-case "$RES" in
-32-bit)	R=$RANDOM
-	echo "Resampling."
-	sox "$2" -b 24 resample-$R.wav
-	mv resample-$R.wav "$2"
-	;;
-esac
-
 echo
