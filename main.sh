@@ -5,6 +5,10 @@
 BASEDIR=$(basename $(echo $0))
 DIR=$(echo $0 | sed 's/'$BASEDIR'//g')
 
+if [ -z "$DIR" ]; then
+  DIR="./"
+fi
+
 . $DIR/ops.sh
 init_ops
 
